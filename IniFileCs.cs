@@ -18,10 +18,6 @@ namespace UtilityClasses
         private Hashtable m_sections;
         
         private DateTime FileVersionLastLoaded;
-        private bool FileLoaded = false;
-        private string FileLoadedPath = "";
-        private DateTime ValueLastChanged;  // Last time an in-memory value / section was changed.
-                                            // used to determine if the file needs to be saved.
 
         // Public constructor
         public IniFile()
@@ -93,6 +89,12 @@ namespace UtilityClasses
             ValueLastChanged = FileVersionLastLoaded;
             FileLoadedPath = sFileName;
         }
+
+        public string FileLoadedPath { get; set; }
+
+        public DateTime ValueLastChanged { get; set; }
+
+        public bool FileLoaded { get; set; }
 
         // Used to save the data back to the file or your choice
         public void Save(string sFileName)

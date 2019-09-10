@@ -7,9 +7,9 @@ namespace UtilityClasses
 {
     public static class StringExtensions
     {
-        public static string ToJavaScriptSafeString(this string UnsafeString)
+        public static string ToJavaScriptSafeString(this string unsafeString)
         {
-            string SafeString = UnsafeString;
+            string SafeString = unsafeString;
             if (SafeString == null)
             {
                 SafeString = "";
@@ -27,40 +27,51 @@ namespace UtilityClasses
             return SafeString;
         }
 
-        public static string AppendOrOverwriteWithNumber(this string StringToAlter, int NumberToAppend, int MaxLength)
+        public static string AppendOrOverwriteWithNumber(this string stringToAlter, int numberToAppend, int maxLength)
         {
-            string Result = StringToAlter;
+            string Result = stringToAlter;
             int strLen1 = Result.Length;
 
-            string StringToAppend = NumberToAppend.ToString();
+            string StringToAppend = numberToAppend.ToString();
             StringToAppend = "_" + StringToAppend;
             int strLen2 = StringToAppend.Length;
 
-            int CharsToCopyFromOriginalString = MaxLength - (strLen1 + strLen2);
+            int CharsToCopyFromOriginalString = maxLength - (strLen1 + strLen2);
 
             if (CharsToCopyFromOriginalString > strLen1)
             {
                 CharsToCopyFromOriginalString = strLen1;
             }
-            Result = StringToAlter.Substring(0, CharsToCopyFromOriginalString);
+            Result = stringToAlter.Substring(0, CharsToCopyFromOriginalString);
             Result += StringToAppend;
 
             return Result;
         }
 
-        public static string Left(this string OriginalString, int MaxNumberOfChars)
+        public static string Left(this string originalString, int maxNumberOfChars)
         {
-            string Result = OriginalString;
+            string Result = originalString;
 
             if (Result != null)
             {
-                if (Result.Length > MaxNumberOfChars)
+                if (Result.Length > maxNumberOfChars)
                 {
-                    Result = Result.Substring(0, MaxNumberOfChars);
+                    Result = Result.Substring(0, maxNumberOfChars);
                 }
             }
 
             return Result;
+        }
+
+        public static string ReplaceLastOccurrence(this string source, string find, string replace)
+        {
+            int place = source.LastIndexOf(find, StringComparison.Ordinal);
+
+            if (place == -1)
+                return source;
+
+            string result = source.Remove(place, find.Length).Insert(place, replace);
+            return result;
         }
     }
 }
