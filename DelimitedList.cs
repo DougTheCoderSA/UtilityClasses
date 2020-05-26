@@ -34,7 +34,7 @@ namespace UtilityClasses
         /// <param name="pItemPrefix">The item prefix.</param>
         /// <param name="pItemPostfix">The item suffix.</param>
         public DelimitedList(int pInsertPosition = 0, string pPrefix = "", string pPostfix = "",
-            bool pGenerateIfEmpty = false, string pItemPrefix = "", string pItemPostfix = "")
+            bool pGenerateIfEmpty = false, string pItemPrefix = "", string pItemPostfix = "", string pDelimeter = ", ")
         {
             _insertPosition = pInsertPosition;
             _prefix = pPrefix;
@@ -42,6 +42,7 @@ namespace UtilityClasses
             _itemPrefix = pItemPrefix;
             _itemPostfix = pItemPostfix;
             _generateIfEmpty = pGenerateIfEmpty;
+            _delimeter = pDelimeter;
         }
 
         public DelimitedList(string pDelimeter = ", ")
@@ -75,13 +76,13 @@ namespace UtilityClasses
 
         // Append a delimited list
         public DelimitedList AppendDelimitedList(string pPrefix = "", string pPostfix = "",
-            bool pGenerateIfEmpty = false, string pItemPrefix = "", string pItemPostfix = "")
+            bool pGenerateIfEmpty = false, string pItemPrefix = "", string pItemPostfix = "", string pDelimeter = ", ")
         {
             int InsertPosition = _list.Length;
             if (InsertPosition < 0)
                 InsertPosition = 0;
 
-            DelimitedList Result = new DelimitedList(InsertPosition, pPrefix, pPostfix, pGenerateIfEmpty, pItemPrefix, pItemPostfix);
+            DelimitedList Result = new DelimitedList(InsertPosition, pPrefix, pPostfix, pGenerateIfEmpty, pItemPrefix, pItemPostfix, pDelimeter);
             Result.CreationOrder = _insertedDelimitedLists.Count + 1;
             _insertedDelimitedLists.Add(Result);
             return Result;
